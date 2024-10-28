@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Colores Estático - 5 Niveles</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .tablero {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            grid-gap: 5px;
+            justify-content: center;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .score {
+            font-size: 18px;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-top: 10px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .circulo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .normal,
+        .especial {
+            cursor: pointer;
+        }
+
+        .susto {
+            display: none;
+            color: white;
+            background-color: black;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #contador {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .nivel:target {
+            display: grid;
+        }
+
+        #empezar:target {
+            display: none;
+        }
+
+        .susto:target {
+            display: flex;
+        }
+
+        .nivel1 {
+            display: none;
+        }
+
+        .nivel2 {
+            display: none;
+        }
+
+        .nivel3 {
+            display: none;
+        }
+
+        .nivel4 {
+            display: none;
+        }
+
+        .nivel5 {
+            display: none;
+        }
+
+        /* Colores de los niveles */
+        .nivel1 .normal {
+            background-color: #f28b82;
+        }
+
+        .nivel1 .especial {
+            background-color: #f2977a;
+        }
+
+        .nivel2 .normal {
+            background-color: #fbbc04;
+        }
+
+        .nivel2 .especial {
+            background-color: #fbad03;
+        }
+
+        .nivel3 .normal {
+            background-color: #fff475;
+        }
+
+        .nivel3 .especial {
+            background-color: #fff36f;
+        }
+
+        .nivel4 .normal {
+            background-color: #a7ffeb;
+        }
+
+        .nivel4 .especial {
+            background-color: #a3ffe8;
+        }
+
+        .nivel5 .normal {
+            background-color: #cbf0f8;
+        }
+
+        .nivel5 .especial {
+            background-color: #c7eff7;
+        }
+
+        #empezar {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #74ebd5;
+            color: #333;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #empezar:hover,
+        #empezar:focus {
+            background-color: #62d4c8;
+            transform: scale(1.05);
+        }
+
+        #contador {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes crecer {
+            from {
+                transform: scale(0.5);
+                /* Comienza con el tamaño original */
+            }
+
+            to {
+                transform: scale(3);
+                /* Termina un 50% más grande */
+            }
+        }
+
+        #imagenAnimada {
+            animation: crecer 0.5s;
+            /* Aplica la animación */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="contador">
+        <a href="#nivel1" id="empezar"> Empezar</a>
+    </div>
+
+    <div id="nivel1" class="tablero nivel nivel1">
+        <!-- Círculos para Nivel 1 -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#nivel2" class="circulo especial"></a> <!-- El especial de este nivel -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <p></p>
+        <p class="score">0/5</p>
+        <p></p>
+    </div>
+
+    <div id="nivel2" class="tablero nivel nivel2">
+        <!-- Círculos para Nivel 2 -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#nivel3" class="circulo especial"></a> <!-- El especial de este nivel -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <p></p>
+        <p class="score">1/5🙂</p>
+        <p></p>
+    </div>
+
+    <div id="nivel3" class="tablero nivel nivel3">
+        <!-- Círculos para Nivel 3 -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#nivel4" class="circulo especial"></a> <!-- El especial de este nivel -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <p></p>
+        <p class="score">2/5😌</p>
+        <p></p>
+    </div>
+
+    <div id="nivel4" class="tablero nivel nivel4">
+        <!-- Círculos para Nivel 4 -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#nivel5" class="circulo especial"></a> <!-- El especial de este nivel -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <p></p>
+        <p class="score">3/5🥵</p>
+        <p></p>
+    </div>
+
+    <div id="nivel5" class="tablero nivel nivel5">
+        <!-- Círculos para Nivel 5, último nivel -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#victoria" class="circulo especial"></a> <!-- Enlace a pantalla de victoria al final -->
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <a href="#susto" class="circulo normal"></a>
+        <p></p>
+        <p class="score">4/5💀</p>
+        <p></p>
+    </div>
+
+    <div id="susto" class="susto">
+        <img id="imagenAnimada"
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAEsASwDASIAAhEBAxEB/8QAHQABAAEEAwEAAAAAAAAAAAAAAAcEBQYIAQMJAv/EADgQAAEDAwMDAwQABQIGAwEAAAEAAgMEBREGEiEHMUEIE1EUImFxFSMygZEJoRZCscHh8BckUoL/xAAcAQEAAQUBAQAAAAAAAAAAAAAABAECAwUGBwj/xAA0EQACAgEDAwIEAwgCAwAAAAAAAQIDEQQFIRIxQRNRBiJhkRRxsQcVIySBocHwMtFScuH/2gAMAwEAAhEDEQA/APKpERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBZtovorrjqJaZLnprS9yvdBHMad9RRwF7GyANcWk/OHNP8AcLCVV0t3raGL26erqIGZztilc0Z+cApz4KrHkpEREKBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBEIwUQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREBU0VIamT4bnBK+paB8cm3ODyQD+F10b3MnZtODnI/azaOS3QUzJJzG+XBDwOTyottsq32yb/b9DVrYSTl0teWYM5px9wIJ5yV145Cvlxts1ZXP9mP8AltYD+AMf+FSTRMia3sW7dufg/KyqxNIgW6SdcpZ7Lz7lC2Fz3ANGV8vYWHB4Kv1VUQ09rjhp4CwvDS57jk7gMkg+ArNNMZyC7uG4yroycvBivphThdWXjP8A8OlERXkQIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIg7oe5x2QBERAEREBy07Tldv1H8st25J7uyulFTGS5Sa7FzpLzJFOXl+Gloa4HnIC6K2eOR5MZwD3GFRoreiKeUSZamyVfpyeUdjpCWD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">
+
+    </div>
+
+    <div id="victoria" class="susto">
+        <h1>¡Felicidades!</h1>
+        <p>Has completado todos los niveles.</p>
+        <p><a href="#" style="color: white;">Volver a jugar</a></p>
+    </div>
+
+
+</body>
+
+</html>
